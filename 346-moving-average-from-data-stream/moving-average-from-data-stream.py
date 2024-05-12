@@ -7,7 +7,9 @@ class MovingAverage:
         self.count = 0
 
     def next(self, val: int) -> float:
-        self.count += 1
+        
+        if (self.count <= self.size):
+            self.count += 1
         self.sum += val
         self.arr.append(val)
 
