@@ -16,9 +16,9 @@ class Solution:
                 abbr_ptr += 1
                 word_ptr += 1
             else:
+                if abbr[abbr_ptr] == '0':
+                    return False
                 while abbr_ptr < len(abbr) and (not abbr[abbr_ptr].isalpha()):
-                    if abbr[abbr_ptr] == '0' and not count:
-                        return False
                     count += abbr[abbr_ptr]
                     abbr_ptr += 1 
                 word_ptr += int(count)
