@@ -1,5 +1,7 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+
+        ## Detect Cycle in a Directed Graph
         adjList = [[] for _ in range(numCourses)]
         visited = [False for _ in range(numCourses)]
         recS = [False for _ in range(numCourses)]
