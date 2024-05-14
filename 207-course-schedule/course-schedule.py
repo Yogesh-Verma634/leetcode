@@ -6,9 +6,8 @@ class Solution:
         visited = [False for _ in range(numCourses)]
         recS = [False for _ in range(numCourses)]
 
-        for pre in prerequisites:
-            dest, src = pre[0], pre[1]
-            adjList[src].append(dest)
+        for preReq, course in prerequisites:
+            adjList[course].append(preReq)
 
         for course in range(numCourses):
             if not visited[course]:
