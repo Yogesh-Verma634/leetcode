@@ -6,18 +6,22 @@
 #         self.right = right
 class Solution:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
-        sum_leaf_to_node = [0]
+        self.sum_leaf_to_node = 0
+
         def dfs(node, path):
+            # If we reach an empty leaf node - Node of a parent with either left or right empty
             if not node:
                 return
-            
+
+            ## If we reach the leaf node => calculate sum of this path
             if not node.left and not node.right:
-                sum_leaf_to_node[0] += int(path + str(node.val))
+                self.sum_leaf_to_node += int(path + str(node.val))
                 return
-            
+
+            ## Recursively call for both left and right sides
             dfs(node.left, path + str(node.val))
             dfs(node.right, path + str(node.val))
-        
-        
-        dfs(root, '')
-        return sum_leaf_to_node[0]
+
+        ## Recursively go over all the paths from root to leaf nodes
+        dfs(root, "")
+        return self.sum_leaf_to_node
