@@ -22,7 +22,7 @@ class Solution:
             if node.right:
                 q.append([node.right, hd + 1])
 
-        return [val for hd, val in sorted(mapping.items())]
+        return [mapping[hd] for hd in range(min(mapping), max(mapping)+1)]
     
         ### Recursive DFS
         # self.traversal_map = {}
