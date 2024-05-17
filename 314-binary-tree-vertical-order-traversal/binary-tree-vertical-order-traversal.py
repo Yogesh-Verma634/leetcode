@@ -6,25 +6,42 @@
 #         self.right = right
 class Solution:
     def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        self.traversal_map = {}
-        self.order = []
 
-        def dfs(node, horizontal_level, vertical_level):
-            if not node:
-                return
-            if horizontal_level not in self.traversal_map:
-                self.traversal_map[horizontal_level] = []
-            self.traversal_map[horizontal_level].append([vertical_level, node.val]) 
+        ## Iterative BFS
+        if not root:
+            return []
+        q = deque([(root, 0)])
+        mapping = defaultdict(list)
+        # hd -> Horizontal distance from root node
+        while q:
+            node, hd = q.popleft()
+            mapping[hd].append(node.val)
 
-            dfs(node.left, horizontal_level - 1, vertical_level + 1)
-            dfs(node.right, horizontal_level + 1, vertical_level + 1)
+            if node.left:
+                q.append([node.left, hd - 1])
+            if node.right:
+                q.append([node.right, hd + 1])
 
-        dfs(root, 0, 0)
-        # print(self.traversal_map)
-        levels = [v for k, v in sorted(self.traversal_map.items())]
-        # print(levels)
-        for level in levels:
-            level.sort(key=lambda a: a[0])
-            self.order.append([l[1] for l in level])
-        return self.order
+        return [val for hd, val in sorted(mapping.items())]
+    
+        ### Recursive DFS
+        # self.traversal_map = {}
+        # self.order = []
+
+        # def dfs(node, horizontal_level, vertical_level):
+        #     if not node:
+        #         return
+        #     if horizontal_level not in self.traversal_map:
+        #         self.traversal_map[horizontal_level] = []
+        #     self.traversal_map[horizontal_level].append((vertical_level, node.val)) 
+
+        #     dfs(node.left, horizontal_level - 1, vertical_level + 1)
+        #     dfs(node.right, horizontal_level + 1, vertical_level + 1)
+
+        # dfs(root, 0, 0)
+        # for level in sorted(self.traversal_map.keys()):
+        #     print(level)
+        #     self.traversal_map[level].sort(key=lambda a: a[0])
+        #     self.order.append([item[1] for item in self.traversal_map[level]])
+        # return self.order
 
