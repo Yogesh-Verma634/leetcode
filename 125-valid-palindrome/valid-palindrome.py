@@ -3,15 +3,10 @@ class Solution:
         s = s.lower()
         li = list(s)
 
-        for idx, char in enumerate(s):
-            if char == ' ' or not char.isalnum():
-                li[idx] = ''
+        s = [ch for ch in s.lower() if ch.isalnum()]
+        li =  ''.join(s)
         
-        li =  ''.join(li)
-        
-        print(li)
-        left = 0
-        right = len(li) -1 
+        left, right = 0,  len(li) -1 
 
         while left <= right:
             if li[left] != li[right]:
