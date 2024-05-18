@@ -14,15 +14,10 @@ class Solution:
                 else:
                     stack.append([(char, idx)])
 
-        invalid_idx = set()
+        valid_paren_str = list(s)
         while stack:
             ele = stack.pop()
-            invalid_idx.add(ele[0][1])
-            
-        for idx, char in enumerate(s):
-            if idx not in invalid_idx:
-                valid_paren_str += char
-
-        return valid_paren_str
+            valid_paren_str[ele[0][1]] = ''
+        return ''.join(valid_paren_str)
 
         
