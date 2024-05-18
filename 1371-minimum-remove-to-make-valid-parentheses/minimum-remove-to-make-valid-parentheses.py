@@ -17,5 +17,3 @@ class Solution:
             ele = stack.pop()
             valid_paren_str[ele[0][1]] = ''
         return ''.join(valid_paren_str)
-
-        
