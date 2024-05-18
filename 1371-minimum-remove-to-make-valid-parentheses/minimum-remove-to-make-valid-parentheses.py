@@ -7,9 +7,7 @@ class Solution:
             if char == '(':
                 stack.append([(char, idx)])
             if char == ')':
-                if not stack:
-                    stack.append([(char, idx)])
-                elif stack[-1][0][0] == '(':
+                if stack and stack[-1][0][0] == '(':
                     stack.pop()
                 else:
                     stack.append([(char, idx)])
