@@ -1,11 +1,11 @@
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
 
-        ## Case 1:
+        ## Cases:
+        #             <---->  if curr_start > prev_end => ignore
         # <-------->
         #    <--------> => min(start), max(end)
         #    <-->
-        #             <---->  if curr_start > prev_end => ignore
         intervals.sort(key = lambda a: a[0])
         merged_interval = []
         for interval in intervals:
