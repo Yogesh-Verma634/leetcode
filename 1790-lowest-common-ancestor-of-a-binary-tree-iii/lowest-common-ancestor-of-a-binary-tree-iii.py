@@ -11,22 +11,33 @@ class Node:
 class Solution:
     def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
         
-        if p == q:
-            return True
+        # Slow and Fast pointer types traversal
+        p_copy = p
+        q_copy = q
 
-        if not p or not q:
-            return None
-        
-        path = list()
+        while p_copy != q_copy:
+            if not p_copy:
+                p_copy = q
+            else:
+                p_copy = p_copy.parent
 
-        while p:
-            path.append(p)
-            p = p.parent
+            if not q_copy:
+                q_copy = p
+            else:
+                q_copy = q_copy.parent
         
-        while q:
-            if q in path:
-                return q
-            q = q.parent
-        
-        # return  or  or self.lowestCommonAncestor(p.parent, q.parent)
+        return p_copy
 
+
+
+        ### Path Traversal
+        ### SC - O(2N), TC - O(N*N) where N is the depth of tree
+        # path = list()
+        # while p:
+        #     path.append(p)
+        #     p = p.parent
+        
+        # while q:
+        #     if q in path:
+        #         return q
+        #     q = q.parent
