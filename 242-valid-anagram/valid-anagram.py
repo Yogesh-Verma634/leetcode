@@ -1,6 +1,7 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        ### Hashset solution
+        
+        ### HashMap solution, TC - O(N), SC - O(N)
         count_char_s = {}
         count_char_t = {}
 
