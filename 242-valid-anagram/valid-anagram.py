@@ -3,7 +3,6 @@ class Solution:
         
         ### HashMap solution, TC - O(N), SC - O(N)
         count_char_s = {}
-        count_char_t = {}
 
         for ch in s:
             if ch not in count_char_s:
@@ -11,11 +10,13 @@ class Solution:
             count_char_s[ch] += 1 
         
         for ch in t:
-            if ch not in count_char_t:
-                count_char_t[ch] = 0
-            count_char_t[ch] += 1 
+            if ch not in count_char_s:
+                return False
+            count_char_s[ch] -= 1
+            if not count_char_s[ch]:
+                del(count_char_s[ch])
 
-        return count_char_s == count_char_t
+        return True if not len(count_char_s) else False
         ### Sorting solution, TC - N(log N), SC - O(1)
-        return sorted(s) == sorted(t)
+        # return sorted(s) == sorted(t)
         
