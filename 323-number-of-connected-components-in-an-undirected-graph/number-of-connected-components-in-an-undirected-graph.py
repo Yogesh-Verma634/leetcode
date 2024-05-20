@@ -6,21 +6,37 @@ class Solution:
         for src, dest in edges:
             self.adjList[src].append(dest)
             self.adjList[dest].append(src)
-        
-        ## DFS Solution
         visited = set()
-        def dfs(node):
-            if node in visited:
-                return
-            visited.add(node)
-            for neighbor in self.adjList[node]:
-                    dfs(neighbor)
+
+        ### BFS Solution
+        q = collections.deque()
         count = 0
         for idx in range(n):
             if idx not in visited:
-                dfs(idx)
+                q.append(idx)
+                while q:
+                    node = q.popleft()
+                    if node not in visited:
+                        visited.add(node)
+                        for neighbor in self.adjList[node]:
+                            q.append(neighbor)
                 count += 1
         return count
+
+
+        ## DFS Solution => TC - O(N), SC - O(N)
+        # def dfs(node):
+        #     if node in visited:
+        #         return
+        #     visited.add(node)
+        #     for neighbor in self.adjList[node]:
+        #             dfs(neighbor)
+        # count = 0
+        # for idx in range(n):
+        #     if idx not in visited:
+        #         dfs(idx)
+        #         count += 1
+        # return count
         
         ### Union Find Solution => TC - O(N log N), SC - O(N) 
         # self.par = {}
