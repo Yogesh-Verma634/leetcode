@@ -7,7 +7,8 @@ class Solution:
         def find(node):
             if self.parent_arr[node] == node:
                 return node
-            return find(self.parent_arr[node])
+            self.parent_arr[node] = find(self.parent_arr[node])
+            return self.parent_arr[node]
 
         def union(node1, node2):
             par_node1 = find(node1)
