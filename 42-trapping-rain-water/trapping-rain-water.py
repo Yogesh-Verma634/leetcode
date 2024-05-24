@@ -10,10 +10,10 @@ class Solution:
             if height[l] < height[r]:
                 res += min(max_l, max_r) - (height[l])
                 l += 1
+                max_l = max(max_l, height[l])
             else:
                 res += min(max_l, max_r) - (height[r])
                 r -= 1
-            max_l = max(max_l, height[l])
-            max_r = max(max_r, height[r])
+                max_r = max(max_r, height[r])
         
         return res
