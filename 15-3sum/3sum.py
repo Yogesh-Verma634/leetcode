@@ -1,8 +1,7 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        ## X + Y + Z = 0
-        # Y + Z = -X => Z = -X + (-Y)
-        nums.sort()
+
+        nums = sorted(nums)
         triplets = set()
 
         ## [-1,0,1,2,-1,-4]
@@ -14,26 +13,26 @@ class Solution:
 
         # X + Y + Z = 0
         for x_idx in range(len(nums)-1):
-            Variable.X = nums[x_idx]
-
             if x_idx > 0 and nums[x_idx] == nums[x_idx - 1]:
                 continue
-            seen = set()
+            X = nums[x_idx]
+            
+            y_idx = x_idx + 1
+            z_idx = len(nums) - 1
 
-            target_sum = -Variable.X
-            for y_idx in range(x_idx+1, len(nums)):
-                Variable.Y = nums[y_idx]
-                Variable.Z = (target_sum - Variable.Y)
+            while y_idx < z_idx:
+                Y = nums[y_idx]
+                Z = nums[z_idx]
+
+                curr_sum = X + Y + Z
+
+                if curr_sum == 0:
+                    triplets.add((X, Y, Z))
+                if curr_sum > 0:
+                    z_idx -= 1
+                else:
+                    y_idx += 1
                 
-                if Variable.Z in seen:
-                    triplet = [Variable.X, Variable.Y, Variable.Z]
-                    triplets.add(tuple(sorted(triplet)))
                 
-                seen.add(Variable.Y)
         
         return triplets
-
-class Variable:
-    X = 0
-    Y = 0
-    Z = 0
