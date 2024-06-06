@@ -22,18 +22,13 @@ class Solution:
         curr_bucket = []
         while curr:
             curr_bucket.append(head)
-            for _ in range(bucket_size):
-                if curr:
-                    prev = curr
-                    curr = curr.next
-                
-            if remainder and curr:
+            for _ in range(bucket_size + (1 if remainder > 0 else 0)):
                 prev = curr
                 curr = curr.next
-                remainder -= 1
-                
+
             prev.next = None
             head = curr
+            remainder -= 1
         
         if len(curr_bucket) != k:
             for _ in range(k - len(curr_bucket)):
