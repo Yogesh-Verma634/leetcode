@@ -18,15 +18,17 @@ class Solution:
             return low
 
         def quickselect(low, high):
-            if low < high:
+            while low < high:
                 pivot = partition(low, high)
 
                 if pivot == k:
                     return
                 elif pivot < k:
-                    quickselect(pivot + 1, high)
+                    low = pivot + 1
+                    # quickselect(pivot + 1, high)
                 else:
-                    quickselect(low, pivot - 1)
+                    high = pivot - 1
+                    # quickselect(low, pivot - 1)
             
         distances = [(x**2+y**2, (x, y)) for x, y in points]
 
