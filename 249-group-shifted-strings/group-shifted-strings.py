@@ -3,17 +3,13 @@ class Solution:
         dist_map = {}
 
         for st in strings:
-            dist = []
-            for i in range(1, len(st)):
-                reach = ord(st[i]) - ord(st[i-1])
-                if reach < 0:
-                    reach = 26 + reach
-                dist.append(reach)
+            key = ()
+            for i in range(len(st)-1):
+                diff = ord(st[i+1]) - ord(st[i])
+                if diff < 0:
+                    diff += 26
+                key += (diff, )
+            dist_map[key] = dist_map.get(key, []) + [st]
 
-            if tuple(dist) not in dist_map:
-                dist_map[tuple(dist)] = []
-            dist_map[tuple(dist)].append(st)
-        
-        # print(dist_map)
-        return [val for key, val in dist_map.items()]
+        return list(dist_map.values())
         
