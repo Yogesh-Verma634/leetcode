@@ -3,8 +3,10 @@ class Solution:
         
         ## Quick select
         def partition(low, high):
-            pivot = distances[high][0]
-            pivot_idx = high
+            pivot_idx = random.randint(low, high)
+            pivot = distances[pivot_idx][0]
+            
+            distances[high], distances[pivot_idx] = distances[pivot_idx], distances[high]
 
             for curr in range(low, high):
                 curr_val = distances[curr][0]
@@ -12,7 +14,7 @@ class Solution:
                     distances[low], distances[curr] = distances[curr], distances[low]
                     low += 1
             
-            distances[low], distances[pivot_idx] = distances[pivot_idx], distances[low]
+            distances[low], distances[high] = distances[high], distances[low]
             return low
 
         def quickselect(low, high):
@@ -28,7 +30,7 @@ class Solution:
             
         distances = [(x**2+y**2, (x, y)) for x, y in points]
 
-        quickselect(0, len(points)-1)
+        quickselect(0, len(distances)-1)
 
         return [point for _, point in distances[:k]]
 
