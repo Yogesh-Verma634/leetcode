@@ -1,63 +1,40 @@
 class Solution:
-    from collections import deque
 
     def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
-        #init constants
-        A = grid
-        dirns = [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [-1, 1], [1, -1], [1, 1]] # U, D, L, R, UL, UR, DL, DR
-        n = len(A)
-
-        #edge case
-        if (A[0][0] == 1) or (A[n-1][n-1] == 1):
+        ROWS, COLS = len(grid) - 1, len(grid[0]) - 1
+        directions = [(0, -1), (0, 1), (1, 0), (-1, 0), (-1, -1), (1, 1),(-1, 1),(1, -1)]
+        if grid[0][0] == 1 or grid[ROWS][COLS] == 1:
             return -1
+        
+        q = deque()
+        q.append((0, 0))
+        seen = {(0, 0)}
+        
+        curr_dist = 1
 
-        #setting base distance for n-1,n-1
-        A[n-1][n-1] = 1
+        while q:
 
-        #init queue
-        queue = deque()
-        if self.isBound(A, n - 1, n - 2) and A[n - 1][n - 2] == 0:
-            queue.append([n-1, n-2])
-        if self.isBound(A, n - 2, n - 1) and A[n - 2][n - 1] == 0:
-            queue.append([n - 2, n - 1])
-        if self.isBound(A, n - 2, n - 2) and A[n - 2][n - 2] == 0:
-            queue.append([n - 2, n - 2])
+            for _ in range(len(q)):
+                r, c = q.popleft()
 
-        while len(queue):
-            #get current node and it's min dist + append neigbours unvisited
-            curNode = queue.popleft()
-            r = curNode[0]
-            c = curNode[1]
-            minDist = float('inf')
-
-            #iterate over all 8 neighbors
-            for dirn in dirns:
-                nr = r + dirn[0]
-                nc = c + dirn[1]
+                if r == ROWS and c == COLS:
+                    return curr_dist
                 
-                #edge case
-                if nr == n-1 and nc == n-1:
-                    minDist = A[nr][nc]
+                for dr, dc in directions:
+                    nr, nc = r + dr, c + dc
                 
-                #normal case
-                elif self.isBound(A, nr, nc): #if within bounds
-                    if A[nr][nc] == 0: #unvisited node
-                        A[nr][nc] = -1
-                        queue.append([nr, nc])
-                    elif A[nr][nc] != 1 and A[nr][nc] != -1: #visited node, excluding those currently in queue 
-                        minDist = min(minDist, A[nr][nc])
-            A[r][c] = minDist + 1
+                    if 0 <= nr <= ROWS and \
+                    0 <= nc <= COLS and \
+                    grid[nr][nc] == 0 and \
+                    (nr, nc) not in seen:
+                        seen.add((nr, nc))
+                        q.append((nr, nc))
 
-        
-        return A[0][0] if A[0][0] != 0 else -1
-        
+            curr_dist += 1
+
+        return -1
 
 
-    def isBound(self, A, i, j):
-        n = len(A)
-        return i >= 0 and i < n and j >= 0 and j < n
-
-        
 # class Solution:
 #     def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
 #         self.min_path = float('inf')
