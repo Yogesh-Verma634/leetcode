@@ -3,23 +3,17 @@ class Solution:
         res = []
         if not nums:
             return [[lower, upper]]
+        
+        prev = lower
+
         for idx, num in enumerate(nums):
+            if prev != num:
+                res.append([prev, num-1])
 
-            if idx == 0:
-                left = lower
-            else:
-                left = nums[idx-1]+1
-            right = num
-            
-            if left != right:
-                res.append([left, right-1])
+            prev = num + 1
 
-            if idx == len(nums)-1:
-                left = num
-                right = upper
-                if left != right:
-                    res.append([left+1, right])
-
+        if num != upper:
+            res.append([num+1, upper])
         return res
 
         
