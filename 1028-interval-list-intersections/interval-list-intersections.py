@@ -14,10 +14,11 @@ class Solution:
             f_start, f_end = firstList[i][0], firstList[i][1]
             s_start, s_end = secondList[j][0],secondList[j][1]
 
-            if s_start <= f_start <= s_end or f_start <= s_start <= f_end:
-                overlap_start = max(f_start, s_start)            
-                overlap_end = min(firstList[i][1], secondList[j][1])
-                res.append([overlap_start, overlap_end])
+            start = max(f_start, s_start)            
+            end = min(f_end, s_end)
+
+            if start <= end:
+                res.append([start, end])
 
             if firstList[i][1] < secondList[j][1]:
                 i += 1
