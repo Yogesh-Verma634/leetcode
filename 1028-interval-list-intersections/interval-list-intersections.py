@@ -2,8 +2,6 @@ class Solution:
     def intervalIntersection(self, firstList: List[List[int]], secondList: List[List[int]]) -> List[List[int]]:
         i, j = 0, 0
         res = []
-        # firstList.sort()
-        # secondList.sort()
 
         while i < len(firstList) and j < len(secondList):
             # 1. Check overlap between current pointers to firstList and secondList
@@ -21,10 +19,7 @@ class Solution:
                 overlap_end = min(firstList[i][1], secondList[j][1])
                 res.append([overlap_start, overlap_end])
 
-            if firstList[i][1] == secondList[j][1]:
-                i += 1
-                j += 1
-            elif firstList[i][1] < secondList[j][1]:
+            if firstList[i][1] < secondList[j][1]:
                 i += 1
             else:
                 j += 1
