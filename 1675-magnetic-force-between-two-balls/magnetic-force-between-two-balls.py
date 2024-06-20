@@ -1,8 +1,8 @@
 class Solution:
     def maxDistance(self, position: List[int], m: int) -> int:
-        min_f, max_f = 1, max(position) - min(position)
         position.sort()
-
+        min_f, max_f = 1, (max(position) - min(position))//(m-1)
+        
         def force_possible(force, max_balls):
             last_pos = position[0]
 
