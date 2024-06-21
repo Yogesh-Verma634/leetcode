@@ -7,10 +7,7 @@ class Solution:
         unsatis_idx = minutes-1
         i, j = 0, minutes
 
-        while j < len(customers):
-            # if grumpy[i] == 1:
-            #     curr_sum -= 
-            # if grumpy[j] == 1:
+        for j in range(minutes, len(customers)):
             curr_sum = curr_sum + customers[j] * grumpy[j] - customers[i] * grumpy[i]
                 
             if curr_sum > max_unsatisfied_cust:
@@ -18,7 +15,7 @@ class Solution:
                 unsatis_idx = j
 
             i += 1
-            j += 1
+
         max_customer = 0
         low, high = unsatis_idx - minutes + 1 , unsatis_idx
         for idx, customer in enumerate(customers):
