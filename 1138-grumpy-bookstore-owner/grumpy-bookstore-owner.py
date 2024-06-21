@@ -8,10 +8,10 @@ class Solution:
         i, j = 0, minutes
 
         while j < len(customers):
-            if grumpy[i] == 1:
-                curr_sum -= customers[i]
-            if grumpy[j] == 1:
-                curr_sum = curr_sum + customers[j]
+            # if grumpy[i] == 1:
+            #     curr_sum -= 
+            # if grumpy[j] == 1:
+            curr_sum = curr_sum + customers[j] * grumpy[j] - customers[i] * grumpy[i]
                 
             if curr_sum > max_unsatisfied_cust:
                 max_unsatisfied_cust = curr_sum
