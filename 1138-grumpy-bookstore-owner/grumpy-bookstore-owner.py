@@ -3,7 +3,7 @@ class Solution:
         if len(customers) <= minutes:
             return sum(customers)
 
-        curr_sum = max_unsatisfied_cust = sum([customers[idx] if grumpy[idx] > 0 else 0  for idx in range(0, minutes)])
+        curr_sum = max_unsatisfied_cust = sum([customers[idx] * grumpy[idx] for idx in range(0, minutes)])
         unsatis_idx = minutes-1
         i, j = 0, minutes
 
