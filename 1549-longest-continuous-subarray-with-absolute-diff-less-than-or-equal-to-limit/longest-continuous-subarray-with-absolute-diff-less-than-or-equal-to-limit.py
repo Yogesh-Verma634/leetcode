@@ -2,25 +2,28 @@ class Solution:
     def longestSubarray(self, nums: List[int], limit: int) -> int:
 
         left = 0
-        max_window = 1
+        max_window = 0
         min_heap = []
         max_heap = []
         heapq.heapify(min_heap)
         heapq.heapify(max_heap)
 
-        for right, num in enumerate(nums):
-            heapq.heappush(min_heap, (nums[right], right))
-            heapq.heappush(max_heap, (-nums[right], right))
+        for idx, num in enumerate(nums):
+            heapq.heappush(min_heap, num)
+            heapq.heappush(max_heap, -num)
 
-            while min_heap[0][1] < left:
-                heapq.heappop(min_heap)
-            while max_heap[0][1] < left:
-                heapq.heappop(max_heap)
+            min_, max_ = min_heap[0], -max_heap[0]
 
-            if -max_heap[0][0] - min_heap[0][0] <= limit:
-                # if it's valid, we can update the answer
-                max_window = max(max_window, right - left + 1)
-            else:
-                # else we just move the left end of the window
+            if (max_ - min_) > limit:
+                # if min_heap[0] == nums[left]:
+                min_heap.remove(nums[left])
+                
+                # if -max_heap[0] == nums[left]:
+                max_heap.remove(-nums[left])
                 left += 1
+                heapq.heapify(min_heap)
+                heapq.heapify(max_heap)
+            
+            max_window = max(max_window, idx-left+1)
+
         return max_window
