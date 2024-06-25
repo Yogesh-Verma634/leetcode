@@ -12,7 +12,7 @@ class Solution:
                 return
             
             # Recursion on Right Subtree
-            right_val = tree_traversal(node.right)
+            tree_traversal(node.right)
             self.sum_ += node.val
 
             ## Node value update
