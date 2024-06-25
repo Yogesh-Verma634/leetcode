@@ -46,32 +46,19 @@ class Solution:
 
         ### BFS Implementation
         # TC - O(N), SC - O(N)
-        # depth = 1
-        # nested_sum = 0
-        # q = collections.deque(nestedList)
+        depth = 1
+        nested_sum = 0
+        q = collections.deque(nestedList)
 
-        # while q:
-        #     for _ in range(len(q)):
-        #         ele = q.popleft()
-        #         if ele.isInteger():
-        #             nested_sum += depth * ele.getInteger()
-        #         else:
-        #             q.extend(ele.getList())
-            
-        #     depth += 1
-        
-        # return nested_sum
-
-        #### DFS Implementation - Not working    
-        def nested_depth_sum(nestedList, depth: int) -> int:
-            nested_sum = 0
-
-            for ele in nestedList:
+        while q:
+            for _ in range(len(q)):
+                ele = q.popleft()
                 if ele.isInteger():
-                    nested_sum += ele.getInteger() * depth
+                    nested_sum += depth * ele.getInteger()
                 else:
-                    nested_sum += nested_depth_sum(ele.getList(), depth + 1)
-
-            return nested_sum
+                    q.extend(ele.getList())
+            
+            depth += 1
         
-        return nested_depth_sum(nestedList, 1)
+        return nested_sum
+
