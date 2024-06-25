@@ -40,39 +40,38 @@
 #        Return None if this NestedInteger holds a single integer
 #        :rtype List[NestedInteger]
 #        """
-
+from typing import List
 class Solution:
-    def depthSum(self, nestedList: List[NestedInteger]) -> int:  
-        depth = 1
-        nested_sum = 0
-        q = collections.deque(nestedList)
+    def depthSum(self, nestedList: List[NestedInteger]) -> int:
 
-        while q:
-            for _ in range(len(q)):
-                ele = q.popleft()
-                if ele.isInteger():
-                    nested_sum += depth * ele.getInteger()
-                else:
-                    q.extend(ele.getList())
-            
-            depth += 1
-        
-        return nested_sum
-
-        #### DFS Implementation      
-        # def nested_depth_sum(nestedList, depth: int) -> int:
-        #     nested_sum = 0
-        #     if nestedList.isInteger():
-        #         return nestedList.getInteger() * depth
-
-        #     for idx, ele in enumerate(nestedList.getList()):
-        #         if ele.getList():
-        #             ele.setInteger(nested_depth_sum(ele.getList(), depth + 1))
-        #     return sum(nestedList)
-        
+        ### BFS Implementation
+        # TC - O(N), SC - O(N)
+        # depth = 1
         # nested_sum = 0
-        # for ele in nestedList:
-        #     if not ele.isInteger():
-        #         ele.setInteger(nested_depth_sum(ele.getList(), 1))
-        #     nested_sum += ele.getInteger()
+        # q = collections.deque(nestedList)
+
+        # while q:
+        #     for _ in range(len(q)):
+        #         ele = q.popleft()
+        #         if ele.isInteger():
+        #             nested_sum += depth * ele.getInteger()
+        #         else:
+        #             q.extend(ele.getList())
+            
+        #     depth += 1
+        
         # return nested_sum
+
+        #### DFS Implementation - Not working    
+        def nested_depth_sum(nestedList, depth: int) -> int:
+            nested_sum = 0
+
+            for ele in nestedList:
+                if ele.isInteger():
+                    nested_sum += ele.getInteger() * depth
+                else:
+                    nested_sum += nested_depth_sum(ele.getList(), depth + 1)
+
+            return nested_sum
+        
+        return nested_depth_sum(nestedList, 1)
