@@ -5,22 +5,20 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    sum_ = 0
     def bstToGst(self, root: TreeNode) -> TreeNode:
-        self.sum_ = 0
-        def tree_traversal(node):
-            if not node:
-                return
-            
-            # Recursion on Right Subtree
-            tree_traversal(node.right)
-            self.sum_ += node.val
+        if not root:
+            return
+        
+        # Recursion on Right Subtree
+        self.bstToGst(root.right)
+        self.sum_ += root.val
 
-            ## Node value update
-            node.val = self.sum_
+        ## Node value update
+        root.val = self.sum_
 
-            ## Recursion on Left Subtree
-            tree_traversal(node.left)
-                
-        tree_traversal(root)
+        ## Recursion on Left Subtree
+        self.bstToGst(root.left)
+
         return root
         
